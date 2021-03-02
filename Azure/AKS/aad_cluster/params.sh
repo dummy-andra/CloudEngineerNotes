@@ -1,0 +1,10 @@
+## AKS Cluster
+LOCATION="eastus"
+RG_NAME="LabMarti-DevOps"
+CLUSTER_NAME="Dummy-Hello-lab"
+NODE_SIZE="Standard_DS2_v2"
+NODE_COUNT="3"
+NODE_DISK_SIZE="35"
+VERSION="1.19.6"
+CNI_PLUGIN="kubenet"
+VMSETTYPE="VirtualMachineScaleSets"
