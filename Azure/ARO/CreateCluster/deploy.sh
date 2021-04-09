@@ -1,6 +1,6 @@
 ##!/usr/bin/env bash
 set -e
-. ./params.sh
+. ./params-sample.sh
 
 
 # Create Resource Group
