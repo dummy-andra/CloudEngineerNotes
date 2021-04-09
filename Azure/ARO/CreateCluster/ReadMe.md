@@ -25,7 +25,7 @@ https://cloud.redhat.com/openshift/install/azure/aro-provisioned
 Click Download pull secret and download a pull secret to be used with your ARO cluster.
 https://docs.microsoft.com/en-us/azure/openshift/tutorial-create-cluster
 
-![image (1)](\pics\Capture.JPG)
+![image (1)](pics\Capture.JPG)
 
 
 
