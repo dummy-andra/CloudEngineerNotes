@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-manual
+  labels:
+    app: autoscaler-test-manual
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: autoscaler-test-manual
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: autoscaler-test-manual
+        tier: frontend
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+
