@@ -1,0 +1,6 @@
+mysql_user_password: marius
+mysql_root_password: bebe
+http_host: 127.0.0.1
+http_conf: nginx.conf
+http_port: 80
+ansible_python_interpreter: "python3" 

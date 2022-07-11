@@ -1,0 +1,39 @@
+---
+
+- name: "enable ufw firewall"
+  ufw: name=ufw state=enabled
+  become: yes
+
+- name: "set logging"
+  ufw:
+    logging: 'on'
+
+- name: "allow ssh connections"
+  ufw:
+    rule: allow
+    name: OpenSSH
+  become: yes
+
+- name: "allow all access to tcp port 80"
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+
+- name: "allow all access to tcp port 5000"
+  ufw:
+    rule: allow
+    port: '5000'
+    proto: tcp
+
+
+
+# tasks update vm
+- name: "Update vagrant machine"
+  apt: upgrade=yes update_cache=yes 
+  become: yes
+
+# tasks install language-pack-en-base
+- name: "install language-pack-en-base"
+  apt: name=language-pack-en-base state=present
+  become: yes

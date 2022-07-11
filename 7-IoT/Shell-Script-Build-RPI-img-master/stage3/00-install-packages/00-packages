@@ -1,0 +1,8 @@
+git
+java-common oracle-java8-jdk libxi6 libxrender1 libxtst6 x11-common
+python-serial
+python-pip
+wiringpi pigpio python-pigpio  raspi-gpio python-gpiozero
+python-spidev 
+pprompt
+openvpn

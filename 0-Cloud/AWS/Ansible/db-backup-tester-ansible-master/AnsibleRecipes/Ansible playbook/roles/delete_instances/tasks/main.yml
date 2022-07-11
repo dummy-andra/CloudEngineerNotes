@@ -1,0 +1,14 @@
+- name: Terminate instance
+  ec2:
+    key_name: "{{ ansible_user }}"
+    aws_access_key: "{{access_key}}"
+    aws_secret_key: "{{secret_key}}"
+    image: ami-ae7bfdb8
+    state: absent
+    instance_ids: i-0710b35fe1ea41d46
+    region: us-east-1
+  register: ec2_delete_out
+
+- name: Display all facts known for ec2_delete_out
+  debug:
+    msg: "{{ ec2_delete_out }}"

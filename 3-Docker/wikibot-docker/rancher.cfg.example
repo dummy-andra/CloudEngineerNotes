@@ -1,0 +1,43 @@
+[DEFAULT]
+rancherdev_access_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+rancherdev_secret_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+server = https://helpdesk.eaudeweb.ro
+apikey = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+project = python-test-redmine
+
+infrasvcs = healthcheck vxlan ipsec network-services nfs scheduler janitor logcentral-logspout
+
+[wiki]
+server = https://helpdesk.eaudeweb.ro
+apikey = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+project = python-test-redmine
+page = Rancher_hosts
+title = Rancher hosts
+containerpage = Active Docker images
+containertitle = Active Docker images
+
+[stacks]
+page = Rancher_stacks
+title = Rancher stacks
+
+[general]
+environments = 
+    1a5
+
+
+#deactivation = 1a281 devel1fra
+deactivation = 
+
+digraph = 1st8
+
+shelve = rancher.svl
+
+# Development
+
+[1a5]
+label = RancherDev: Devel2dub
+rancher_url=http://rancher.edw.ro/v1/projects/1a5
+rancher_access_key=%(rancherdev_access_key)s
+rancher_secret_key=%(rancherdev_secret_key)s
+keep = %(infrasvcs) mockservices global-lb

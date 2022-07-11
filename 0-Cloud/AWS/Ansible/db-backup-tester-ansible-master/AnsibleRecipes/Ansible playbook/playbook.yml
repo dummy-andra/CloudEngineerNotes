@@ -1,0 +1,8 @@
+# I should create a variable.yml file to keep data in {{variable}}
+
+- hosts: localhost
+  vars:
+    access_key: #put key here
+    secret_key: #put secret key here
+  roles:
+    - db_backup_tester

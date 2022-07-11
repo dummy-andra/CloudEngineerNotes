@@ -1,0 +1,69 @@
+- name: check whoami
+  shell: whoami
+  #become: yes
+  register: module_stdout
+
+- name: Display module_stdout
+  debug:
+    msg: "{{ module_stdout }}"
+
+- name: Ensure mount directory exists
+  #become: yes
+  file:
+    path: /data
+    state: directory
+    mode: 0755
+
+
+
+# Configure mount points.
+- name: Configure mount points - mount device by name
+  #become: yes
+  mount:
+    path: /data
+    src: /dev/xvdf
+    fstype: ext4
+    opts: 'defaults nofail 0 2'
+    state: present
+
+#2. install msql, aws client
+
+
+- copy:
+    src: files/mariadb_centos.repo.j2
+    dest: /etc/yum.repos.d/mariadb.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install MariaDB
+  yum: name={{ item }} enablerepo=mariadb state=present
+  with_items:
+    #- MariaDB
+    - MariaDB-server
+    - MariaDB-client
+    #- MySQL-python
+
+# - name: Install MySQLdb Python package for secure installations.
+#   yum: name=MySQL-python state=present
+#   when: mysql_secure_installation and mysql_root_password is defined
+
+
+
+# - copy:
+#     src: files/etc_my.cnf.d_network.cnf.j2
+#     dest: /etc/etc_my.cnf.d_network.cnf.d
+
+- copy:
+    src: files/etc_my.cnf.d_server.cnf.j2
+    dest: /etc/etc_my.cnf.d_server.cnf.d
+
+# - name: remove the mysql test database
+#   mysql_db: db=test
+#             state=absent
+
+
+#3. copy the script that will test the backups
+#4. run the script
+- name: Backup tester script
+  script: files/backupTester.sh

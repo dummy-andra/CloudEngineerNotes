@@ -1,0 +1,6 @@
+- hosts: localhost
+  vars:
+    access_key: #put key here
+    secret_key: #put secret key here
+  roles:
+    - delete_instances

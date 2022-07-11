@@ -1,0 +1,7 @@
+
+- hosts: ec2.compute-1.amazonaws.com
+  gather_facts: True
+  user: centos
+  become: yes
+  roles:
+    - install_on_instance

@@ -1,0 +1,8 @@
+--Project dir
+----playbook.yml
+----hosts(file)
+----roles(dir)
+------mysqlserver(dir)
+----------files (dir)
+----------tasks (dir)
+------------main.yml

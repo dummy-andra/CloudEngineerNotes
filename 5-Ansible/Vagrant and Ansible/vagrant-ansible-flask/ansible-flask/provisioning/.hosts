@@ -1,0 +1,6 @@
+[webservers]
+# Add hosts here
+192.168.33.11 ansible_ssh_user=vagrant
+
+# If ansible_ssh_user is not root, ansible_become must be set to true
+ansible_become=true

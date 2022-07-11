@@ -1,0 +1,10 @@
+---
+
+- hosts: webservers
+  become: true
+  roles:
+    - system_update
+    - setLocale
+    - instal_python3.6
+    - nginx
+

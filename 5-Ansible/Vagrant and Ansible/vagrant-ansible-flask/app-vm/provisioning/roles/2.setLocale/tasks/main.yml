@@ -1,0 +1,22 @@
+- name: locale setting
+  script: /Users/andra/ibm/vagrant/app-vm/provisioning/files/set_locale.sh
+  args:
+    executable: /bin/bash
+
+
+#   environment:
+#     LANG: "en_US.UTF-8"
+#     LC_ALL: "C"
+
+# - name: dev locale
+#   shell: export LC_ALL=C        
+#   args:
+#     executable: /bin/bash
+    # echo "export LC_ALL=en_US.UTF-8" >> ~/.bashrc
+    # source ~/.bashrc
+
+# - name: set default locale
+#   become: yes
+#   lineinfile: dest=/etc/default/locale
+#     regexp="LC_ALL"
+#     line="LC_ALL=\"en_US.UTF-8\""

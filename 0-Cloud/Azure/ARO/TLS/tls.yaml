@@ -1,0 +1,66 @@
+ 
+**If you created an ARO with SPN**
+
+
+```
+# Login with the SPN
+
+az login --service-principal --username $AROSPID --password $TaggingSecret --tenant $TENANT_ID --allow-no-subscriptions
+
+az account set --subscription <Subscription-ID>
+
+
+
+Update TLS into 1.2 for ARO Storage Accounts :
+ 
+az resource list -g $ARONodeRG --resource-type "Microsoft.Storage/storageAccounts" -o table
+
+az storage account update \
+    --name $ARO_SA \
+    --resource-group $ARONodeRG \
+    --min-tls-version TLS1_2
+
+
+
+#  **If your ARO cluster was created without an SPN**
+
+**- Create separately an SPN** 
+```
+# Create a service principal without a default assignment.
+
+az ad sp create-for-rbac \
+    --name <SPN-NAME> \
+    --skip-assignment >> sp-credentials.yaml 2>&1
+
+
+az ad sp create-for-rbac \
+    --name "aro-try-sp-not-working" \
+    --skip-assignment >> sp-credentials.yaml 
+
+cat sp-credentials.yaml
+
+
+# ARO Cluster update with the SPN
+az aro update --name $AROcluster \
+              --resource-group $ARONodeRG \
+              --client-id xxxx \
+              --client-secret xxxx \
+              --debug
+
+
+# Login with the SPN
+
+az login --service-principal --username $AROSPID --password $TaggingSecret --tenant $TENANT_ID --allow-no-subscriptions
+
+az account set --subscription <Subscription-ID>
+
+
+
+Update TLS into 1.2 for ARO Storage Accounts :
+ 
+az resource list -g $ARONodeRG --resource-type "Microsoft.Storage/storageAccounts" -o table
+
+az storage account update \
+    --name $ARO_SA \
+    --resource-group $ARONodeRG \
+    --min-tls-version TLS1_2

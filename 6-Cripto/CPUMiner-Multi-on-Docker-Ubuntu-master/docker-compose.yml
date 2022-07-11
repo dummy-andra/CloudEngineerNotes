@@ -1,0 +1,82 @@
+version: '2'
+
+services:
+
+  monero:
+    image: anecula/cpu-mining-on-docker-ubuntu
+    container_name: xmr-miner
+    restart: unless-stopped
+    environment:
+      - WALLET_ADDRESS=
+      - POOL_ADDRESS=
+
+  bcn:
+    image: anecula/cpu-mining-on-docker-ubuntu
+    container_name: bcn-miner
+    restart: unless-stopped
+    environment:
+      - WALLET_ADDRESS=
+      - POOL_ADDRESS=
+
+  dsh:
+    image: anecula/cpu-mining-on-docker-ubuntu
+    container_name: dsh-miner
+    restart: unless-stopped
+    environment:
+      - WALLET_ADDRESS=
+      - POOL_ADDRESS=
+
+  inf8:
+    image: anecula/cpu-mining-on-docker-ubuntu
+    container_name: inf8-miner
+    restart: unless-stopped
+    environment:
+      - WALLET_ADDRESS=
+      - POOL_ADDRESS=
+
+  qcn:
+    image: anecula/cpu-mining-on-docker-ubuntu
+    container_name: qcn-miner
+    restart: unless-stopped
+    environment:
+      - WALLET_ADDRESS=
+      - POOL_ADDRESS=
+
+  xdn:
+    image: anecula/cpu-mining-on-docker-ubuntu
+    container_name: xdn-miner
+    restart: unless-stopped
+    environment:
+      - WALLET_ADDRESS=
+      - POOL_ADDRESS=
+
+  fcn:
+    image: anecula/cpu-mining-on-docker-ubuntu
+    container_name: fcn-miner
+    restart: unless-stopped
+    environment:
+      - WALLET_ADDRESS=
+      - POOL_ADDRESS=
+  mcn:
+    image: anecula/cpu-mining-on-docker-ubuntu
+    container_name: mcn-miner
+    restart: unless-stopped    
+    environment:
+      - WALLET_ADDRESS=
+      - POOL_ADDRESS=
+      
+      
+      
+      
+      
+      
+      
+
+      
+      
+      
+      
+      
+      
+      
+      

@@ -1,0 +1,64 @@
+---
+
+
+
+# Configure app systemd service and nginx
+
+- name: template systemd service config
+  template:
+    src: ../../../files/.service
+    dest: /etc/systemd/system/{{ app_name }}.service
+  become: yes
+
+- name: start systemd app service
+  systemd: name={{ app_name }}.service state=restarted enabled=yes
+  become: yes
+
+- name: template nginx site config
+  template:
+    src: ../../../files/.nginx
+    dest: /etc/nginx/sites-available/{{ app_name }}
+  become: yes
+
+- name: remove default nginx site config
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  become: yes
+# - command: mv /etc/nginx/sites-enabled/default /tmp/nginx.sites-enabled.default
+
+- name: remove default nginx site config
+  file: path=/etc/nginx/sites-available/default state=absent
+  become: yes
+
+- name: enable nginx site
+  file:
+    src: /etc/nginx/sites-available/{{ app_name }}
+    dest: /etc/nginx/sites-enabled/{{ app_name }}
+    state: link
+    force: yes
+  become: yes
+
+- name: restart nginx
+  systemd: name=nginx state=restarted enabled=yes
+  become: yes
+
+- name: open firewall for nginx
+  ufw:
+    rule: allow
+    name: Nginx Full
+  become: yes
+
+# Run a quick test to verify the site is working
+
+- name: get url
+  get_url:
+    url: http://192.168.33.11 #{{inventory_hostname}}
+    dest: /tmp/index.html
+  become: true
+
+- name: read html
+  shell: cat /tmp/index.html
+  register: html_contents
+
+- name: check for string in html
+  when: html_contents.stdout.find('hello') != -1
+  debug: msg="success!"

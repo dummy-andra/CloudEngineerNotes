@@ -1,0 +1,4 @@
+- name: locale setting
+  script: ../../files/set_locale.sh
+  args:
+    executable: /bin/bash

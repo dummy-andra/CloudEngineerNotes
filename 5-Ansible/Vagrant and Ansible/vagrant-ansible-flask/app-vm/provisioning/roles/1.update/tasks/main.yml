@@ -1,0 +1,12 @@
+---
+
+
+# tasks update vm
+- name: "Update vagrant machine"
+  apt: upgrade=yes update_cache=yes 
+  become: yes
+
+# tasks install language-pack-en-base
+- name: "install language-pack-en-base"
+  apt: name=language-pack-en-base state=present
+  become: yes

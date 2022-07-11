@@ -1,0 +1,6 @@
+venv_path: ../venv
+requirements_path: ../requirements.txt
+app_name: flask_app_ansible_deploy
+ansible_ssh_user: vagrant
+github_user: dummy-andra
+ansible_python_interpreter: "python3" 

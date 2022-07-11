@@ -1,0 +1,84 @@
+#1. set up a new instance in EC2 AWS
+#2. install msql, aws client
+#3. copy the script that will test the backups
+#4. run the script
+
+
+
+#1. set up a new instance in EC2 AWS
+
+- name: ec2 key
+  ec2_key:
+    aws_access_key: "{{access_key}}"
+    aws_secret_key: "{{secret_key}}"
+    name: "{{ ansible_user }}"
+    region: us-east-1
+    key_material: "{{ item }}"
+  with_file: ~/.ssh/id_rsa.pub
+
+- name: Setting up Security/Firewall Group
+  ec2_group:
+    aws_access_key: "{{access_key}}"
+    aws_secret_key: "{{secret_key}}"
+    name: VM_AWS_Security_Grp
+    description: Rules Allowing Traffic on port 22
+    region: us-east-1
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+
+
+
+# - name: Debug EC2 facts
+#   debug: msg="{{ ec2_instances.instances }}"
+
+- name: Provision a EC2 Instance
+  ec2:
+    key_name: "{{ ansible_user }}"
+    aws_access_key: "{{access_key}}"
+    aws_secret_key: "{{secret_key}}"
+    region: us-east-1
+    #state: present
+    instance_type: i2.xlarge
+    image: ami-ae7bfdb8
+    volumes:
+      - device_name: /dev/xvdf
+        volume_type: gp2
+        volume_size: 500
+    wait_timeout: 500
+    wait: yes
+    exact_count: 1
+    count_tag:
+      Name: backup-tester
+    instance_tags:
+      Name: backup-tester
+    monitoring: no
+    group:  VM_AWS_Security_Grp
+  register: ec2_out
+
+- name: Display all variables/facts known for ec2_out
+  debug:
+    msg: "{{ ec2_out }}"
+
+# # Create and attach a volume.
+# - name: Create and attach a volume
+#   ec2_vol:
+#     aws_access_key: "{{access_key}}"
+#     aws_secret_key: "{{secret_key}}"
+#     instance: "{{ ec2_out.tagged_instances[0].id }}"
+#     volume_size: 512
+#     volume_type: gp2
+#     device_name: /dev/xvdf
+#     region: us-east-1
+#   register: ec2_vol_out
+
+
+# - name: Display all variables/facts known for ec2_vol
+#   debug:
+#     msg: "{{ ec2_vol_out }}"
+
+
+- name: Wait for SSH to come up
+  wait_for: host={{ ec2_out.tagged_instances[0].public_ip }} port=22 timeout=600 state=started
